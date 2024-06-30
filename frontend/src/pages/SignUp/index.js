@@ -41,7 +41,7 @@ function SignUp() {
                     setError(response);
                 } else if (response.status && response.status === 200) {
                     localStorage.setItem("currentUser", response.currentUser);
-                    navigate("/chat");
+                    navigate("/chats");
                 }
             }
         );

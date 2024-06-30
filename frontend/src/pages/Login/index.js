@@ -30,13 +30,11 @@ function Login() {
 
     const loginClick = () => {
         AuthSocket.login(email, password, response => {
-          alert("abc");
             if (response.status && response.status !== 200) {
-                
                 setError(response);
             } else if (response.status && response.status === 200) {
                 localStorage.setObject("currentUser", response.currentUser);
-                navigate("/chat");
+                  navigate("/chats");
             }
         });
     };

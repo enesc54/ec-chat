@@ -4,6 +4,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const User = require("./models/user");
+const Room = require("./models/room");
+const Message = require("./models/message");
 
 const app = express();
 app.get("/", (req, res) => {
@@ -15,9 +17,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: 
-          "*"
-        ,
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
@@ -30,7 +30,7 @@ io.on("connection", socket => {
             user.password,
             user.userData
         );
-        console.error(result);
+
         response(result);
     });
     socket.on("loginUser", async (user, response) => {
@@ -47,6 +47,23 @@ io.on("connection", socket => {
         var dbUser = new User();
         const result = await dbUser.resetPassword(data.code, data.newPassword);
         response(result);
+    });
+
+    socket.on("getUserRooms", async (userId, response) => {
+        var dbRoom = new Room();
+        const result = await dbRoom.getRooms(userId);
+
+        response(result);
+    });
+
+    socket.on("getRoomMessages", async roomId => {
+        var dbMessage = new Message();
+        await dbMessage.getMessages(roomId, socket);
+    });
+
+    socket.on("sendMessage", async (roomId, messageData) => {
+        var dbMessage = new Message();
+        await dbMessage.sendMessage(roomId, messageData);
     });
 });
 

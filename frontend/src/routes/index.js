@@ -5,6 +5,8 @@ import SignUp from "pages/SignUp";
 import ForgotPassword from "pages/ForgotPassword";
 import ResetPassword from "pages/ResetPassword";
 
+import Chats from "pages/Chats";
+
 import AuthLayout from "layouts/AuthLayout";
 
 import PrivateRoute from "./PrivateRoute";
@@ -30,7 +32,7 @@ function AppRoutes() {
                             element={<ResetPassword />}
                         />
                     </Route>
-                    <Route path="/chat" element={<PrivateRoute />} />
+                    <Route path="/chats" element={<PrivateRoute />} ><Route index element={<Chats/>}/></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

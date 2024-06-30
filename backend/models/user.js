@@ -17,11 +17,17 @@ module.exports = class User {
     async create(email, password, userData) {
         var result;
         await createUserWithEmailAndPassword(this.auth, email, password)
+        
+                
             .then(userCredential => {
+              const { localId: userId } = userCredential.user.reloadUserInfo;
                 setDoc(doc(db, "users", userCredential.user.uid), userData);
                 result = {
                     status: 200,
-                    currentUser: this.auth.currentUser,
+                    currentUser:  {
+                        userId,
+                        ...this.auth.currentUser.providerData[0]
+                    },
                     message: "Kayıt başarılı..."
                 };
             })
@@ -34,11 +40,14 @@ module.exports = class User {
         var result;
         await signInWithEmailAndPassword(this.auth, email, password)
             .then(userCredential => {
-                console.log(this.auth.currentUser.providerData[0]);
-
+                const { localId: userId } = userCredential.user.reloadUserInfo;
+                
                 result = {
                     status: 200,
-                    currentUser: this.auth.currentUser.providerData[0],
+                    currentUser: {
+                        userId,
+                        ...this.auth.currentUser.providerData[0]
+                    },
                     message: "Giriş başarılı..."
                 };
             })

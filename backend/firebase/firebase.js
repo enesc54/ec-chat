@@ -3,14 +3,13 @@ var { getAuth } = require("firebase/auth");
 var { getFirestore } = require("firebase/firestore");
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDGI5BwBjsYQIHNgpUyuB-PlgUwyqIpv7k",
-    authDomain: "ec-chat-ed820.firebaseapp.com",
-    databaseURL: "https://ec-chat-ed820-default-rtdb.firebaseio.com",
-    projectId: "ec-chat-ed820",
-    storageBucket: "ec-chat-ed820.appspot.com",
-    messagingSenderId: "312266591356",
-    appId: "1:312266591356:web:98e1688fb81e8884678df9",
-    measurementId: "G-XMCHPCQ34C"
+    apiKey: "AIzaSyBWvFTSL1sQHo2YHsqKwl1PJAldPEjC4SY",
+    authDomain: "ec-chat-test.firebaseapp.com",
+    databaseURL: "https://ec-chat-test-default-rtdb.firebaseio.com",
+    projectId: "ec-chat-test",
+    storageBucket: "ec-chat-test.appspot.com",
+    messagingSenderId: "104446720788",
+    appId: "1:104446720788:web:570c179a9937d35d606001"
 };
 
 const app = initializeApp(firebaseConfig);
