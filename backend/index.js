@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+require("dotenv").config();
 
 const User = require("./models/user");
 const Room = require("./models/room");
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.use(cors());
 const server = http.createServer(app);
+
 
 const io = new Server(server, {
     cors: {
@@ -64,6 +66,18 @@ io.on("connection", socket => {
     socket.on("sendMessage", async (roomId, messageData) => {
         var dbMessage = new Message();
         await dbMessage.sendMessage(roomId, messageData);
+    });
+
+    socket.on("getFriends", async (userId, response) => {
+        var dbUser = new User();
+        const result = await dbUser.getFriends(userId);
+        response(result);
+    });
+
+    socket.on("saveRoom", async (roomData,) => {
+      var dbRoom = new Room();
+dbRoom.save(roomData);
+
     });
 });
 

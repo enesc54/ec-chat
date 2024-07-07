@@ -7,6 +7,10 @@ class RoomSocket {
       this.socket.emit("getUserRooms", userId, response
         )
     }
+    
+    saveRoom(roomData){
+      this.socket.emit("saveRoom",roomData)
+    }
 }
 
 export default RoomSocket;

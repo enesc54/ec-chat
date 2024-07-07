@@ -7,7 +7,14 @@ const {
     sendPasswordResetEmail,
     confirmPasswordReset
 } = require("firebase/auth");
-const { setDoc, doc } = require("firebase/firestore");
+const {
+    setDoc,
+    doc,
+    getDoc,
+    collection,
+    query,
+    where
+} = require("firebase/firestore");
 
 module.exports = class User {
     constructor() {
@@ -17,14 +24,15 @@ module.exports = class User {
     async create(email, password, userData) {
         var result;
         await createUserWithEmailAndPassword(this.auth, email, password)
-        
-                
             .then(userCredential => {
-              const { localId: userId } = userCredential.user.reloadUserInfo;
-                setDoc(doc(db, "users", userCredential.user.uid), userData);
+                const { localId: userId } = userCredential.user.reloadUserInfo;
+                setDoc(
+                    doc(this.db, "users", userCredential.user.uid),
+                    userData
+                );
                 result = {
                     status: 200,
-                    currentUser:  {
+                    currentUser: {
                         userId,
                         ...this.auth.currentUser.providerData[0]
                     },
@@ -41,7 +49,7 @@ module.exports = class User {
         await signInWithEmailAndPassword(this.auth, email, password)
             .then(userCredential => {
                 const { localId: userId } = userCredential.user.reloadUserInfo;
-                
+
                 result = {
                     status: 200,
                     currentUser: {
@@ -56,7 +64,6 @@ module.exports = class User {
             });
         return result;
     }
-
     async sendResetPasswordEmail(email) {
         var result;
         await sendPasswordResetEmail(this.auth, email)
@@ -74,7 +81,6 @@ module.exports = class User {
 
         return result;
     }
-
     async resetPassword(code, newPassword) {
         var result;
         console.log(code, newPassword);
@@ -88,6 +94,16 @@ module.exports = class User {
             .catch(e => {
                 result = FirebaseErrorHandler(e);
             });
+        return result;
+    }
+    async getFriends(userId) {
+      var result;
+        const userRef = doc(collection(this.db, "users"), userId);
+        
+        await getDoc(userRef).then(user => {
+            result = user.data().friends;
+        });
+
         return result;
     }
 };

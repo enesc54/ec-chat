@@ -4,7 +4,7 @@ import Alert from "components/Alert";
 
 import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { AuthSocket } from "socketio";
+import { UserSocket } from "socketio";
 
 function SignUp() {
     const [email, setEmail] = useState();
@@ -30,7 +30,7 @@ function SignUp() {
     const navigate = useNavigate();
 
     const signUpClick = () => {
-        AuthSocket.signup(
+        UserSocket.signup(
             {
                 email,
                 password,

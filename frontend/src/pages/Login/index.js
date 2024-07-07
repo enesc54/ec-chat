@@ -5,7 +5,7 @@ import Alert from "components/Alert";
 import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { AuthSocket } from "socketio";
+import { UserSocket } from "socketio";
 
 function Login() {
     const [email, setEmail] = useState({ message: "dkdk" });
@@ -29,7 +29,7 @@ function Login() {
     const navigate = useNavigate();
 
     const loginClick = () => {
-        AuthSocket.login(email, password, response => {
+        UserSocket.login(email, password, response => {
             if (response.status && response.status !== 200) {
                 setError(response);
             } else if (response.status && response.status === 200) {

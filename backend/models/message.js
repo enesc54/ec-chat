@@ -27,6 +27,7 @@ class Message {
             socket.emit(
                 `${roomId}`,
                 snapshot.docs.map(doc => {
+                    console.log(doc.data());
                     return {
                         ...doc.data(),
                         id: doc.id,
@@ -44,8 +45,7 @@ class Message {
             new Date(messageData.timeStamp)
         );
         const messagesRef = doc(
-            collection(doc(collection(this.db, `rooms`), roomId), "messages"),
-            Math.random().toString()
+            collection(doc(collection(this.db, `rooms`), roomId), "messages")
         );
 
         await setDoc(messagesRef, messageData);

@@ -8,7 +8,7 @@ import {
     useSearchParams,
     useOutletContext
 } from "react-router-dom";
-import { AuthSocket } from "socketio";
+import { UserSocket } from "socketio";
 
 function ResetPassword() {
     const [searchParams] = useSearchParams();
@@ -36,7 +36,7 @@ function ResetPassword() {
 
     const resetClick = () => {
         if (password && password === confirmPassword) {
-            AuthSocket.passwordReset({ oobCode, password }, response => {
+            UserSocket.passwordReset({ oobCode, password }, response => {
                 if (response.status && response.status !== 200) {
                     setError(response);
                 } else if (response.status && response.status === 200) {

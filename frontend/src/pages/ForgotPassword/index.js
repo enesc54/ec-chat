@@ -4,7 +4,7 @@ import Alert from "components/Alert";
 
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { AuthSocket } from "socketio";
+import { UserSocket } from "socketio";
 
 function ForgotPassword() {
     const [email, setEmail] = useState();
@@ -27,7 +27,7 @@ function ForgotPassword() {
     
 
     const resetClick = () => {
-        AuthSocket.sendPasswordResetEmail(email, response => {
+        UserSocket.sendPasswordResetEmail(email, response => {
             if (response.status && response.status !== 200) {
                 setError(response);
             } else if (response.status && response.status === 200) {
