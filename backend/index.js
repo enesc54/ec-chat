@@ -9,13 +9,9 @@ const Room = require("./models/room");
 const Message = require("./models/message");
 
 const app = express();
-app.get("/", (req, res) => {
-    res.send("server");
-});
 
 app.use(cors());
 const server = http.createServer(app);
-
 
 const io = new Server(server, {
     cors: {
@@ -24,7 +20,7 @@ const io = new Server(server, {
     }
 });
 
-io.on("connection", socket => {
+io.on("connection", async socket => {
     socket.on("createUser", async (user, response) => {
         var dbUser = new User();
         const result = await dbUser.create(
@@ -35,16 +31,19 @@ io.on("connection", socket => {
 
         response(result);
     });
+
     socket.on("loginUser", async (user, response) => {
         var dbUser = new User();
         const result = await dbUser.login(user.email, user.password);
         response(result);
     });
+
     socket.on("sendResetPasswordEmail", async (email, response) => {
         var dbUser = new User();
         const result = await dbUser.sendResetPasswordEmail(email);
         response(result);
     });
+
     socket.on("resetPassword", async (data, response) => {
         var dbUser = new User();
         const result = await dbUser.resetPassword(data.code, data.newPassword);
@@ -74,10 +73,70 @@ io.on("connection", socket => {
         response(result);
     });
 
-    socket.on("saveRoom", async (roomData,) => {
-      var dbRoom = new Room();
-dbRoom.save(roomData);
+    socket.on("saveRoom", async roomData => {
+        var dbRoom = new Room();
+        dbRoom.save(roomData);
+    });
 
+    socket.on("getAllUsers", async response => {
+        var dbUser = new User();
+        const result = await dbUser.getAllUsers();
+        response(result);
+    });
+
+    socket.on("searchUser", async (searchTerm, response) => {
+        var dbUser = new User();
+        const result = await dbUser.searchUser(searchTerm);
+        response(result);
+    });
+
+    socket.on(
+        "sendFriendRequest",
+        async (senderUsername, recipientUsername) => {
+            var dbUser = new User();
+            await dbUser.sendFriendRequest(senderUsername, recipientUsername);
+        }
+    );
+
+    socket.on(
+        "followupStatus",
+        async (senderUsername, recipientUsername, response) => {
+            var dbUser = new User();
+            var result = await dbUser.followupStatus(
+                senderUsername,
+                recipientUsername
+            );
+            response(result);
+        }
+    );
+
+    socket.on(
+        "cancelFriendRequest",
+        async (senderUsername, recipientUsername) => {
+            var dbUser = new User();
+            await dbUser.cancelFriendRequest(senderUsername, recipientUsername);
+        }
+    );
+
+    socket.on("deleteFriend", async (username, friendUsername) => {
+        var dbUser = new User();
+        await dbUser.deleteFriend(username, friendUsername);
+    });
+
+    socket.on("friendRequests", async (username, response) => {
+        var dbUser = new User();
+        var result = await dbUser.friendRequests(username);
+        response(result);
+    });
+
+    socket.on("acceptRequest", async (username, reqUsername) => {
+        var dbUser = new User();
+        await dbUser.acceptRequest(username, reqUsername);
+    });
+
+    socket.on("rejectRequest", async (username, reqUsername) => {
+        var dbUser = new User();
+        await dbUser.rejectRequest(username, reqUsername);
     });
 });
 

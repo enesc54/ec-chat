@@ -65,22 +65,22 @@ class Room {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         downloadURL => {
                             addDoc(collection(this.db, "rooms"), {
-            name: roomData.name,
-            members: roomData.members,
-            roomImg: downloadURL
-        });
+                                name: roomData.name,
+                                members: roomData.members,
+                                roomImg: downloadURL
+                            });
                         }
                     );
                 }
             );
+        } else {
+            addDoc(collection(this.db, "rooms"), {
+                name: roomData.name,
+                members: roomData.members,
+                roomImg: null
+            });
         }
-else{
-         addDoc(collection(this.db, "rooms"), {
-            name: roomData.name,
-            members: roomData.members,
-            roomImg: null
-        });
-    }}
+    }
 }
 
 module.exports = Room;
