@@ -1,2 +1,2 @@
 # ec-chat
-### website link: [ec-chat.vercel.app](ec-chat.vercel.app)
+### website link: [https://ec-chat.vercel.app](https://ec-chat.vercel.app)
