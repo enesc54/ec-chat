@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 function Entry(props) {
     const [value, setValue] = useState("");
     useEffect(() => {
-        
         if (!props.text) {
             setValue("");
         }

@@ -50,9 +50,8 @@ module.exports = {
                     "-ms-overflow-style": "none",
                     "scrollbar-width": "none"
                 }
-                
             };
-            addUtilities(newUtilities)
+            addUtilities(newUtilities);
         }
     ]
 };

@@ -1,4 +1,4 @@
-const { auth, db } = require("../firebase/firebase");
+const { auth, db } = require("../firebase");
 const FirebaseErrorHandler = require("../firebase/firebase_errors");
 const {
     collection,
@@ -27,7 +27,6 @@ class Message {
             socket.emit(
                 `${roomId}`,
                 snapshot.docs.map(doc => {
-                    console.log(doc.data());
                     return {
                         ...doc.data(),
                         id: doc.id,

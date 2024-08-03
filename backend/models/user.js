@@ -1,4 +1,4 @@
-const { auth, db } = require("../firebase/firebase");
+const { auth, db } = require("../firebase");
 const FirebaseErrorHandler = require("../firebase/firebase_errors");
 
 const {
