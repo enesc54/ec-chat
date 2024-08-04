@@ -37,7 +37,7 @@ module.exports = class User {
                         result = {
                             status: 200,
                             currentUser: {
-                                userId,
+                                userId: userId,
                                 username: user.data().username,
                                 fullname: user.data().fullname,
                                 ...this.auth.currentUser.providerData[0]
@@ -64,7 +64,7 @@ module.exports = class User {
                         result = {
                             status: 200,
                             currentUser: {
-                                userId,
+                                userId: userId,
                                 username: user.data().username,
                                 fullname: user.data().fullname,
                                 ...this.auth.currentUser.providerData[0]
@@ -100,7 +100,7 @@ module.exports = class User {
 
     async resetPassword(code, newPassword) {
         var result;
-        
+
         await confirmPasswordReset(this.auth, code, newPassword)
             .then(() => {
                 result = {
@@ -249,7 +249,6 @@ module.exports = class User {
                     ? user.data().friends
                     : [];
 
-                
                 if (user.data().friends?.includes(friendUsername)) {
                     userFriends.splice(userFriends.indexOf(friendUsername), 1);
                     updateDoc(user.ref, {
@@ -270,7 +269,6 @@ module.exports = class User {
                     ? user.data().friends
                     : [];
 
-                
                 if (user.data().friends?.includes(username)) {
                     userFriends.splice(userFriends.indexOf(username), 1);
                     updateDoc(user.ref, {
@@ -313,7 +311,6 @@ module.exports = class User {
     }
 
     async acceptRequest(username, reqUsername) {
-        
         const usersRef = collection(this.db, "users");
 
         const q1 = await query(usersRef, where("username", "==", username));

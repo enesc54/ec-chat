@@ -1,6 +1,7 @@
 import AppRoutes from "./routes";
 
 Storage.prototype.setObject = function (key, value) {
+    
     this.setItem(key, JSON.stringify(value));
 };
 

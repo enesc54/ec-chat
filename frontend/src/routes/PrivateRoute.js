@@ -6,7 +6,7 @@ function PrivateRoute() {
     if (user) {
         return <Outlet />;
     } else {
-        return <Navigate to="/auth/login" replace />;
+        return <Navigate to='/auth/login' replace />;
     }
 }
 

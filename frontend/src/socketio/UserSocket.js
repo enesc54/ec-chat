@@ -68,7 +68,7 @@ class UserSocket {
     acceptRequest(username, reqUsername) {
         this.socket.emit("acceptRequest", username, reqUsername);
     }
-    
+
     rejectRequest(username, reqUsername) {
         this.socket.emit("rejectRequest", username, reqUsername);
     }

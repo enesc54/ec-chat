@@ -19,7 +19,7 @@ function SignUp() {
         if (error) {
             setAlertView(
                 <Alert
-                    type="error"
+                    type='error'
                     message={error.message}
                     setVisible={setAlertView}
                 />
@@ -49,24 +49,24 @@ function SignUp() {
 
     return (
         <>
-            <Entry placeholder="Email" text={email} setText={setEmail} />
+            <Entry placeholder='Email' text={email} setText={setEmail} />
             <Entry
-                placeholder="Full Name"
+                placeholder='Full Name'
                 text={fullname}
                 setText={setFullname}
             />
             <Entry
-                placeholder="User Name"
+                placeholder='User Name'
                 text={username}
                 setText={setUsername}
             />
             <Entry
-                placeholder="Password"
+                placeholder='Password'
                 text={password}
                 setText={setPassword}
                 password
             />
-            <Button text="Sign Up" onClick={signUpClick} />
+            <Button text='Sign Up' onClick={signUpClick} />
         </>
     );
 }

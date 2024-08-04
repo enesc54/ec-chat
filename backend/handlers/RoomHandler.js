@@ -11,8 +11,8 @@ class RoomHandler {
         this.socket.on("saveRoom", this.saveRoom.bind(this));
     }
 
-    async getUserRooms(userId, response) {
-        const result = await this.room.getRooms(userId);
+    async getUserRooms(username, response) {
+        const result = await this.room.getRooms(username);
 
         response(result);
     }

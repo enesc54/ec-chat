@@ -20,7 +20,9 @@ function NewRoomPopup(props) {
             UserSocket.getFriends(
                 localStorage.getObject("currentUser").userId,
                 response => {
-                    setFriends([...response]);
+                    if (response) {
+                        setFriends([...response]);
+                    }
                 }
             );
         }
@@ -65,7 +67,7 @@ function NewRoomPopup(props) {
                 : null,
             members: [
                 ...addedFriends,
-                localStorage.getObject("currentUser").userId
+                localStorage.getObject("currentUser").username
             ]
         });
         props.setVisible(false);
@@ -88,11 +90,7 @@ function NewRoomPopup(props) {
             } absolute flex justify-center items-center bg-[rgba(0,0,0,0.5)] h-dvh w-screen`}
         >
             <div className='w-1/2 bg-white rounded-2xl grid grid-cols-3 gap-2 p-6'>
-                <div
-                    className='flex items-center'
-                >
-                    Sohbet Logosu :
-                </div>
+                <div className='flex items-center'>Sohbet Logosu :</div>
                 <div className='col-span-2 mx-4'>
                     <input
                         id='roomImg'

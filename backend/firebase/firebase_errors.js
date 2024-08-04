@@ -1,4 +1,5 @@
 function FirebaseErrorHandler(e) {
+  console.log(e);
     const errorCode = e.code;
     switch (errorCode) {
         case "auth/weak-password":

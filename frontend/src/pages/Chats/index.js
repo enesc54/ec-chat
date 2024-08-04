@@ -22,14 +22,7 @@ function Chats() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        RoomSocket.getRooms(
-            localStorage.getObject("currentUser").userId,
-            response => {
-                setRoomList(response);
-            }
-        );
-    }, []);
+    
 
     roomList.forEach(item => {
         roomItemList.push(
@@ -57,7 +50,7 @@ function Chats() {
     useEffect(() => {
         if (!addRoom) {
             RoomSocket.getRooms(
-                localStorage.getObject("currentUser").userId,
+                localStorage.getObject("currentUser").username,
                 response => {
                     setRoomList(response);
                 }
