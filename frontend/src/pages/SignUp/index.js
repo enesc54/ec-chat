@@ -40,7 +40,7 @@ function SignUp() {
                 if (response.status && response.status !== 200) {
                     setError(response);
                 } else if (response.status && response.status === 200) {
-                    localStorage.setItem("currentUser", response.currentUser);
+                    localStorage.setObject("currentUser", response.currentUser);
                     navigate("/chats");
                 }
             }
